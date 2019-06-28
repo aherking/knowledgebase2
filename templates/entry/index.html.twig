@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entry index{% endblock %}
+{% block bodyheader %}Entry overview{% endblock %}
+
+{% block body %}
+    {% for tag in tags if tag.main %}
+        <div class="col-lg-6 margin-bottom-20">
+
+            <div class="fat-heading-abb">
+                {# href="{{ path('/', {'id': tag.id}) }}"><i class="fa fa-folder"></i> {{ tag.name }} <span class="cat-count">{% set count = 0 %}{% for entry in tag.getEntryid if entry.active %}{% set count = count + 1 %}{% endfor %} ({{ count }})</span></a> #}
+            </div>
+            <div class="fat-content-small padding-left-30">
+                <ul>
+                    {% for entry in tag.getEntries() if entry.active %}
+                        <li> <a href="{{ path('entry_show', {'id': entry.id}) }}"><i class="fa fa-file-text-o"> {{ entry.name }} </i></a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+{% endblock %}
