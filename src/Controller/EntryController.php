@@ -56,10 +56,10 @@ class EntryController extends AbstractController
     /**
      * @Route("/{id}", name="entry_show", methods={"GET"})
      */
-    public function show(Entry $entries): Response
+    public function show(Entry $entry): Response
     {
         return $this->render('entry/show.html.twig', [
-            'entry' => $entries,
+            'entry' => $entry,
         ]);
     }
     /**

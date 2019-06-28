@@ -10,25 +10,25 @@
                     <!-- ENTRY  -->
                     <div class="card card-default col-12">
                         <div class="entry-heading margin-bottom-5">
-                            <a href="{{ path('entry_edit', {'id': entry.id}) }}"><i class="fa fa-pencil-square-o"></i> {{ entry.name }}</a>
+                            <i class="fa fa-pencil-square-o"></i> {{ entry.name }}</a>
                         </div>
                         <div class="entry-info">
-                            <div class="user-name"><a href="#"><i class="fa fa-user-md"></i> {{ entry.getUser.email }}</a></div>
+                            <div class="user-name"><a href="#"><i class="fa fa-user-md"></i> </a></div>
                             <div class="art-date"><a href="#"><i class="fa fa-calendar-o"></i> {{ entry.created ? entry.created|date('Y-m-d H:i:s') : '' }}</a></div>
                             <div class="art-comments"><a href="#"><i class="fa fa-comments-o"></i> 4 Comments </a></div>
                         </div>
                         <div class="entry-content">
                             <h2>Workflow</h2>
                             <p>
-                                {{ entry.workflow|raw }}
+                                {{ entry.workflow }}
                             </p>
                             <h2>Lösung</h2>
                             <p>
-                                {{ entry.solution|raw }}
+                                {{ entry.solution }}
                             </p>
                             <h2>Fehlermeldung</h2>
                             <p>
-                                {{ entry.errormessage|raw }}
+                                {{ entry.error }}
                             </p>
                         </div>
                         <div class="entry-content">

@@ -7,7 +7,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Entries
  * @ORM\Entity(repositoryClass="App\Repository\EntryRepository")
+ * @ORM\Table(name="entry", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})})
+ * @ORM\Entity
  */
 class Entry
 {
@@ -63,6 +66,7 @@ class Entry
      * @ORM\Column(type="text", nullable=true)
      */
     private $solution;
+
 
     public function __construct()
     {
