@@ -24,6 +24,12 @@ class Tag
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=500)
+     */
+    private $description;
+
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $main;
@@ -51,6 +57,18 @@ class Tag
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->name = $description;
 
         return $this;
     }

@@ -26,80 +26,57 @@
 
             </div>
         </nav>
+        <header class="bg-primary text-white">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <form class="card card-sm">
+                            <div class="card-body row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fas fa-search h4 text-body"></i>
+                                </div>
+                                <!--end of col-->
+                                <div class="col">
+                                    <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Suche nach Tags, Keywörtern oder Produkten ...">
+                                </div>
+                                <!--end of col-->
+                                <div class="col-auto">
+                                    <button class="btn btn-lg btn-success" type="submit">Search</button>
+                                </div>
+                                <!--end of col-->
+                            </div>
+                        </form>
+                    </div>
+                    <!--end of col-->
+                </div>
+            </div>
+        </header>
 
     {% endblock %}
 
+
     <div class="container">
+        <h1 class="my-4">Produkte</h1>
         <div class="row">
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="card h-200">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Project One</a>
-                        </h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
-                    </div>
-                </div>
-            </div>
+            {% for tag in tags %}
             <div class="col-lg-4 col-sm-6 mb-4">
                 <div class="card h-100">
                     <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                     <div class="card-body">
                         <h4 class="card-title">
-                            <a href="#">Project Two</a>
+                            <a href="#">{{ tag.name }}</a>
                         </h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                        <p class="card-text">{{ tag.description }}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Project Three</a>
-                        </h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Project Four</a>
-                        </h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Project Five</a>
-                        </h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Project Six</a>
-                        </h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+
         </div>
+
         <!-- /.row -->
 
 
     </div>
+
 {% endblock %}

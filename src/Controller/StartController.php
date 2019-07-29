@@ -2,6 +2,7 @@
 namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Tag;
 class StartController extends AbstractController
 {
     /**
@@ -9,8 +10,12 @@ class StartController extends AbstractController
      */
     public function index()
     {
-        return $this->render('/start/index.html.twig', [
+        $criteria = ['main' => 1];
+        $tags = $this->getDoctrine()
+            ->getRepository((Tag::class))
+            ->findBy($criteria);
 
+        return $this->render('/start/index.html.twig', [ 'tags' => $tags
         ]);
     }
 }
