@@ -3,12 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Entry;
-use App\Entity\Tag;
-use App\Entity\User;
+use App\Form\EntryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/entry")
@@ -18,41 +17,40 @@ class EntryController extends AbstractController
     /**
      * @Route("/", name="entry_index", methods={"GET"})
      */
-    public function index() :Response
+    public function index(): Response
     {
         $entries = $this->getDoctrine()
             ->getRepository(Entry::class)
             ->findAll();
-        $tags = $this->getDoctrine()
-            ->getRepository(Tag::class)
-            ->findAll();
+
         return $this->render('entry/index.html.twig', [
             'entries' => $entries,
-            'tags' => $tags
         ]);
     }
+
     /**
      * @Route("/new", name="entry_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
-        $entries = new Entry();
-        $form = $this->createForm(EntryType::class, $entries);
+        $entry = new Entry();
+        $form = $this->createForm(EntryType::class, $entry);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $date = new \DateTime();
-            $entries->setCreated($date);
-            $entries->setChanged($date);
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($entries);
+            $entityManager->persist($entry);
             $entityManager->flush();
+
             return $this->redirectToRoute('entry_index');
         }
+
         return $this->render('entry/new.html.twig', [
-            'entry' => $entries,
+            'entry' => $entry,
             'form' => $form->createView(),
         ]);
     }
+
     /**
      * @Route("/{id}", name="entry_show", methods={"GET"})
      */
@@ -62,36 +60,40 @@ class EntryController extends AbstractController
             'entry' => $entry,
         ]);
     }
+
     /**
      * @Route("/{id}/edit", name="entry_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Entry $entries): Response
+    public function edit(Request $request, Entry $entry): Response
     {
-        $form = $this->createForm(EntryType::class, $entries);
+        $form = $this->createForm(EntryType::class, $entry);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $date = new \DateTime();
-            $entries->setChanged($date);
             $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('entry_index', [
-                'id' => $entries->getId(),
+                'id' => $entry->getId(),
             ]);
         }
+
         return $this->render('entry/edit.html.twig', [
-            'entry' => $entries,
+            'entry' => $entry,
             'form' => $form->createView(),
         ]);
     }
+
     /**
      * @Route("/{id}", name="entry_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Entry $entries): Response
+    public function delete(Request $request, Entry $entry): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$entries->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$entry->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($entries);
+            $entityManager->remove($entry);
             $entityManager->flush();
         }
+
         return $this->redirectToRoute('entry_index');
     }
 }

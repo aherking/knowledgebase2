@@ -1,26 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Entry index{% endblock %}
-{% block bodyheader %}Entry overview{% endblock %}
 
 {% block body %}
-    {% for tag in tags if tag.main %}
-        <div class="col-lg-6 margin-bottom-20">
+    <h1>Entry index</h1>
 
-            <div class="fat-heading-abb">
-                {# href="{{ path('/', {'id': tag.id}) }}"><i class="fa fa-folder"></i> {{ tag.name }} <span class="cat-count">{% set count = 0 %}{% for entry in tag.getEntryid if entry.active %}{% set count = count + 1 %}{% endfor %} ({{ count }})</span></a> #}
-            </div>
-            <div class="fat-content-small padding-left-30">
-                <ul>
-                    {% for entry in tag.getEntries() if entry.active %}
-                        <li> <a href="{{ path('entry_show', {'id': entry.id}) }}"><i class="fa fa-file-text-o"> {{ entry.name }} </i></a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Active</th>
+                <th>Name</th>
+                <th>Created</th>
+                <th>Changed</th>
+                <th>Workflow</th>
+                <th>Error</th>
+                <th>Solution</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entry in entries %}
+            <tr>
+                <td>{{ entry.id }}</td>
+                <td>{{ entry.active ? 'Yes' : 'No' }}</td>
+                <td>{{ entry.name }}</td>
+                <td>{{ entry.created ? entry.created|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ entry.changed ? entry.changed|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ entry.workflow }}</td>
+                <td>{{ entry.error }}</td>
+                <td>{{ entry.solution }}</td>
+                <td>
+                    <a href="{{ path('entry_show', {'id': entry.id}) }}">show</a>
+                    <a href="{{ path('entry_edit', {'id': entry.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-        </div>
-
-    {% endfor %}
-
+    <a href="{{ path('entry_new') }}">Create new</a>
 {% endblock %}
