@@ -15,6 +15,14 @@ class SecurityController extends AbstractController
      */
     public function login()
     {
-        return new Response('LALA');
+        $response = new Response();
+        $response->setContent(json_encode([
+            'redirect' => 'true',
+            'redirect_url' => '/'
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
+
 }

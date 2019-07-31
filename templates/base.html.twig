@@ -26,13 +26,7 @@
     <script>
         // Get the modal
         var modal = document.getElementById('id01');
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+        
 
     </script>
     <script>
@@ -47,8 +41,14 @@
                 contentType: "application/json",
                 dataType: 'json',
                 data: data,
-                success: function (data, status) {
-                    console.log("DATA", data);
+                success: function (response) {
+                    // redirect must be defined and must be true
+                    if (response.redirect !== undefined && response.redirect) {
+                        window.location.href = response.redirect_url;
+
+                    } else {
+                        alert('ALAAARM');
+                    }
                 }
             });
         });

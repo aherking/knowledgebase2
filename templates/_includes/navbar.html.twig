@@ -18,7 +18,12 @@
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
         </ul>
-        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <a href="/logout" type="button" class="btn btn-danger">Logout</a>
+            {% else %}
+                <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="btn btn-success">Login</button>
+        {% endif %}
 
     </div>
 </nav>
@@ -59,6 +64,7 @@
             </div>
 
             <div class="container">
+                <div id ="error" style="display:none ; visibility: hidden">WRONG USERNAME / PASSWORD</div>
                 <label for="username"><b>Username</b></label>
                 <input type="text" value="" name="username" id="username" class="form-control" placeholder="Username" required autofocus>
 
