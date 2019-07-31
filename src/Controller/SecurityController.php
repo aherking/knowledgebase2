@@ -13,16 +13,22 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login()
+    public function login(Request $request)
     {
-        $response = new Response();
-        $response->setContent(json_encode([
-            'redirect' => 'true',
-            'redirect_url' => '/'
-        ]));
-        $response->headers->set('Content-Type', 'application/json');
+        if($request->isXmlHttpRequest()) {
+            $response = new Response();
+            $response->setContent(json_encode([
+                'redirect' => 'true',
+                'redirect_url' => '/'
+            ]));
+            $response->headers->set('Content-Type', 'application/json');
 
-        return $response;
+            return $response;
+        }
+        else
+        {
+            return $this->redirect("/");
+        }
     }
 
 }
