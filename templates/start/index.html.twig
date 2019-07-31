@@ -2,10 +2,11 @@
 
 {%  block body %}
 
-    {% include '_includes/navbar.twig.html' %}
+    {% include '_includes/navbar.html.twig' %}
 
     {% block content %}
     <div class="container">
+
         <h1 class="my-4">Produkte</h1>
         <div class="row">
             {% for tag in tags %}

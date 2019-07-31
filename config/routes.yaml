@@ -4,3 +4,7 @@
 #index:
 #  path: /entry
 #  controller: App\src\Controller\EntryController::index
+
+app_logout:
+  path: /logout
+  methods: GET
