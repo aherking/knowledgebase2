@@ -6,7 +6,7 @@ use App\Entity\Tag;
 class StartController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="start")
      */
     public function index()
     {
