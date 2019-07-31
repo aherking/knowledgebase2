@@ -22,7 +22,7 @@
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <a href="/logout" type="button" class="btn btn-danger">Logout</a>
             {% else %}
-                <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="btn btn-success">Login</button>
+                <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="btn btn-success">Login</a>
         {% endif %}
 
     </div>
