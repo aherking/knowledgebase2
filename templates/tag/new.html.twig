@@ -1,0 +1,27 @@
+{% extends 'start/index.html.twig' %}
+
+{%  block body %}
+    {% include '_includes/minimal.html.twig' %}
+
+    {%  block content %}
+        <form class="container">
+            <h1 class="my-4">Tag erstellen</h1>
+            <div class="form-group">
+                <label for="InputTitel">Titel</label>
+                <input type="text" class="form-control" id="InputTitel" placeholder="Bitte vergib einen aussagekräftigen Titel">
+            </div>
+            <div class="form-group shadow-textarea" aria-rowcount="10">
+                <label for="InputDescription">
+                    Beschreibung
+                </label>
+                <br>
+                <textarea class="form-control" id="InputDescription" rows="5" type="html" placeholder="Beschreibe den Tag"></textarea>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <label class="custom-control-label" for="mainCheckbox">Main</label>
+                <input type="checkbox" class="custom-control-input" id="mainCheckbox">
+            </div>
+            <button type="submit" class="btn btn-primary">Speichern</button>
+        </form>
+    {% endblock %}
+{%  endblock %}

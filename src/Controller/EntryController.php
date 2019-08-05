@@ -3,6 +3,8 @@ namespace App\Controller;
 use App\Entity\Tag;
 use App\Entity\Entry;
 use App\Entity\User;
+use http\Env\Request;
+use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 class EntryController extends AbstractController
@@ -41,8 +43,25 @@ class EntryController extends AbstractController
      */
     public function edit(Entry $entry)
     {
+        $tags = $this->getDoctrine()
+            ->getRepository((Tag::class))
+            ->findAll();
         return $this->render('entry/edit.html.twig', [
             'entry' => $entry,
+            'tags' => $tags,
+        ]);
+    }
+
+    /**
+     * @Route("entry/new/{id}", name="entry_new", methods={"GET"})
+     */
+    public function new()
+    {
+        $tags = $this->getDoctrine()
+            ->getRepository((Tag::class))
+            ->findAll();
+        return $this->render('entry/new.html.twig', [
+            'tags' => $tags,
         ]);
     }
 }
