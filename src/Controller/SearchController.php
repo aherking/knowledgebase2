@@ -2,6 +2,7 @@
 namespace App\Controller;
 use App\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Entry;
@@ -19,32 +20,21 @@ class SearchController extends AbstractController
     /**
      * @Route("/search", name="search_index")
      */
-    public function index()
+    public function index(Request $request)
     {
-        $criteria = ['main' => 1];
-        $tags = $this->getDoctrine()
-            ->getRepository((Tag::class))
-            ->findBy($criteria);
-
-        return $this->render('/start/index.html.twig', [ 'tags' => $tags
-        ]);
-    }
-    /**
-     * @Route("/search/{searchterm}", name="search_search")
-     */
-    public function search($searchterm)
-    {
+        $searchterm = $request->query->get("search");
         $entries = $this->em->createQueryBuilder()
-            ->select(array('e','t'))
+            ->select(array('e', 't'))
             ->from('App\Entity\Entry', 'e')
             ->leftJoin('e.tagID', 't')
-            ->where('MATCH(e.name, e.solution, e.error, e.workflow) AGAINST (:searchterm boolean) > 0.0 ')
+            ->where('MATCH(e.name, e.solution, e.error, e.workflow) AGAINST (:searchterm boolean) > 0.0')
             ->setParameter('searchterm', $searchterm)
             ->getQuery()
             ->getArrayResult();
 
         return $this->render('entry/index.html.twig', [
             'entries' => $entries
-            ]);
+        ]);
     }
+
 }
