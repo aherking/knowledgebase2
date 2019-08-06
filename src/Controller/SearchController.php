@@ -38,7 +38,7 @@ class SearchController extends AbstractController
             ->select(array('e','t'))
             ->from('App\Entity\Entry', 'e')
             ->leftJoin('e.tagID', 't')
-            ->where('e.name LIKE :searchterm')
+            ->where('MATCH(e.name, e.solution, e.error, e.workflow) AGAINST (:searchterm boolean) > 0.0 ')
             ->setParameter('searchterm', $searchterm)
             ->getQuery()
             ->getArrayResult();
