@@ -3,6 +3,7 @@ namespace App\Controller;
 use App\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Entry;
@@ -32,9 +33,16 @@ class SearchController extends AbstractController
             ->getQuery()
             ->getArrayResult();
 
-        return $this->render('entry/index.html.twig', [
-            'entries' => $entries
-        ]);
+        if ($request->isXmlHttpRequest())
+        {
+            $response = new Response();
+            $response->setContent(json_encode($entries));
+            return $entries["name"];
+        } else {
+            return $this->render('entry/index.html.twig', [
+                'entries' => $entries
+            ]);
+        }
     }
 
 }
