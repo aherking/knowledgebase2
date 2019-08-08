@@ -1,0 +1,29 @@
+{% extends 'start/index.html.twig' %}
+
+{% block content %}
+    <div class="container">
+            <div class="container">
+                <h1 class="my-4">Neue Einträge</h1>
+                <div class="row">
+                    {% for entry in entries %}
+                        <div class="col-lg-4 col-sm-6 mb-4">
+                            <div class="card h-100">
+                                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="{{ path('entry_show', {'id': entry.id}) }}"><i class="fas fa-file-alt" title="Entry"></i> {{ entry.name }} </a>
+                                    </h4>
+                                    <p class="card-text">{{ entry.error }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- /.row -->
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

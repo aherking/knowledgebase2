@@ -22,6 +22,7 @@ security:
                 check_path: /login
                 username_path: username
                 password_path: password
+            access_denied_url: /entry
 
 
 
@@ -34,8 +35,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/entry/new, roles: ROLE_USER }
-        - { path: ^/tag/new, roles: ROLE_USER }
-        - { path: ^/entry/edit, roles: ROLE_USER }
+        - { path: ^/entry/new, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/tag/new, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/entry/edit, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/tag, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }

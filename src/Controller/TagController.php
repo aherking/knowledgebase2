@@ -6,10 +6,6 @@ use App\Entity\Tag;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Entry;
 
-/**
- * @Route("/tag")
- */
-
 class TagController extends AbstractController
 {
     /**
@@ -26,15 +22,56 @@ class TagController extends AbstractController
         return $this->render('/start/index.html.twig', [ 'tags' => $tags
         ]);
     }
+
     /**
-     * @Route("/{id}", name="tag_show", methods={"GET"})
+     * @Route("/tag")
      */
-    public function show(Tag $tag): Response
+    public function index2()
     {
-        $entries = $tag->getEntries();
-        return $this->render('/tag/index.html.twig', [
+        $maincriteria = ['main' => 1];
+        $childcriteria = ['main' => 0];
+        $entries = $this->getDoctrine()
+            ->getRepository(Entry::class)
+            ->findAll();
+        $tags = $this->getDoctrine()
+            ->getRepository((Tag::class))
+            ->findBy($childcriteria);
+        $maintags = $this->getDoctrine()
+            ->getRepository((Tag::class))
+            ->findBy($maincriteria);
+        return $this->render('/tag/index2.html.twig', [
+            'entries' => $entries,
+            'tags' => $tags,
+            'maintags' => $maintags,
+        ]);
+    }
+
+    /**
+     * @Route("tag/{id}", name="tag_show", methods={"GET"})
+     */
+    public function show(Tag $tag)
+    {
+        return $this->render('tag/show.html.twig', [
             'tag' => $tag,
-            'entries' => $entries
+        ]);
+    }
+
+    /**
+     * @Route("tag/edit/{id}", name="tag_edit", methods={"GET"})
+     */
+    public function edit(Tag $tag)
+    {
+        return $this->render('tag/edit.html.twig', [
+            'tag' => $tag,
+        ]);
+    }
+
+    /**
+     * @Route("tag/new/{id}", name="tag_new", methods={"GET"})
+     */
+    public function new()
+    {
+        return $this->render('tag/new.html.twig', [
         ]);
     }
 }

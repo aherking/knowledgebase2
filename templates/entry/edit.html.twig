@@ -1,0 +1,46 @@
+{% extends 'start/index.html.twig' %}
+
+{%  block body %}
+    {% include '_includes/minimal.html.twig' %}
+
+    {%  block content %}
+        <form class="container">
+        <h1 class="my-4">Eintrag bearbeiten</h1>
+        <div class="form-group">
+            <label for="InputTitel">Titel</label>
+            <input type="text" class="form-control" id="InputTitel" value="{{ entry.name }}">
+        </div>
+        <div class="form-group shadow-textarea" aria-rowcount="10">
+            <label for="InputWorkflow">
+                Workflow
+               <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#InputWorkflow" aria-expanded="false" aria-controls="InputWorkflow"></i></small>
+             </label>
+            <br>
+            <textarea class="collapse show form-control" id="InputWorkflow" rows="5" type="html" >{{ entry.workflow }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="InputError">Error</label>
+            <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#InputError" aria-expanded="false" aria-controls="InputError"></i></small>
+            <textarea rows="5" type="html" class="collapse show form-control" id="InputError">{{ entry.error }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="InputSolution">Lösung</label>
+            <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#InputSolution" aria-expanded="false" aria-controls="InputSolution"></i></small>
+            <textarea rows="5" type="html" class="collapse show form-control" id="InputSolution">{{ entry.solution }}</textarea>
+        </div>
+        <div>
+            <label for="TagSelect">Tags</label>
+            <select class="custom-select" id="TagSelect" multiple>
+                {% for tag in tags %}
+                    {% if tag in entry.getTagId() %}
+                        <option selected value="{{ tag.id }}"> {{ tag.name }} {% if tag.main %}(main){% endif %}</option>
+                    {% else %}
+                        <option value="{{ tag.id }}"> {{ tag.name }} {% if tag.main %}(main){% endif %}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Speichern</button>
+    </form>
+    {% endblock %}
+{%  endblock %}

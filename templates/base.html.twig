@@ -43,12 +43,12 @@
                 data: data,
                 success: function (response) {
                     // redirect must be defined and must be true
-                    if (response.redirect !== undefined && response.redirect) {
-                        window.location.href = response.redirect_url;
-
-                    } else {
-                        alert('ALAAARM');
+                    if (response.success) {
+                        window.location.href = document.URL;
                     }
+                },
+                error: function() {
+                    $('#error').show();
                 }
             });
         });
