@@ -1,0 +1,26 @@
+fos_elastica:
+    clients:
+        default: { host: 'localhost', port: '9200' }
+    indexes:
+        kbase: # the name of our index
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            keyword_analyzer: # this is a custom analyzer, see the explanations below
+                                type: custom
+                                tokenizer: standard
+                                filter: [standard, lowercase, asciifolding, trim]
+            types:
+                entry: # the name of our type
+                    properties:
+                        name:
+                        error:
+                        solution:
+                        workflow:
+                    persistence:
+                        driver: orm
+                        model: App\Entity\Entry
+                        provider: ~
+                        finder: ~
+                        repository: App\SearchRepository\EntryRepository
