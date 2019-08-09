@@ -29,6 +29,7 @@ class SearchController extends AbstractController
             ->from('App\Entity\Entry', 'e')
             ->leftJoin('e.tagID', 't')
             ->where('MATCH(e.name, e.solution, e.error, e.workflow) AGAINST (:searchterm boolean) > 0.0')
+            ->orWhere('t.name LIKE :searchterm')
             ->setParameter('searchterm', $searchterm)
             ->getQuery()
             ->getArrayResult();
@@ -38,6 +39,7 @@ class SearchController extends AbstractController
             $response = new Response();
             $response->setContent(json_encode($entries));
             return $entries["name"];
+
         } else {
             return $this->render('entry/index.html.twig', [
                 'entries' => $entries
