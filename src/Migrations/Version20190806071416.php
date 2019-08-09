@@ -21,15 +21,15 @@ final class Version20190806071416 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->addSql('CREATE FULLTEXT INDEX search_indexes ON entry (name, workflow, error, solution)');
 
-        $this->addSql('DROP INDEX search_indexes ON entry');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->addSql('DROP INDEX search_indexes ON entry');
 
-        $this->addSql('CREATE FULLTEXT INDEX search_indexes ON entry (name, workflow, error, solution)');
     }
 }
