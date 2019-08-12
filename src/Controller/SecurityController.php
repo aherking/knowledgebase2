@@ -18,8 +18,7 @@ class SecurityController extends AbstractController
         if($request->isXmlHttpRequest()) {
             $response = new Response();
             $response->setContent(json_encode([
-                'redirect' => 'true',
-                'redirect_url' => '/'
+                'success' => 'true',
             ]));
             $response->headers->set('Content-Type', 'application/json');
 
