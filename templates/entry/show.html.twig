@@ -35,9 +35,8 @@
         <p>
         <h4>Tags</h4>
         {% for tag in entry.getTagId() %}
-
                 <a href="{{ path('tag_show', {'id': tag.id}) }}"><i class="fas fa-tags" title="Tag"></i> {{ tag.name }} </a>
-            {% endfor %}
+        {% endfor %}
         </p>
     </div>
 {%  endblock %}
