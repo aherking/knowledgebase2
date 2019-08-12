@@ -34,6 +34,7 @@ class ElasticController extends AbstractController
         foreach ($entries as $entry) {
             $data[] = [
                 'name' => $entry->getName(),
+                'error' => $entry->getError()
             ];
         }
         return new JsonResponse($data);

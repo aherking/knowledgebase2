@@ -19,7 +19,24 @@ class EntryRepository extends ServiceEntityRepository
         parent::__construct($registry, Entry::class);
     }
 
+    public function search($search = null, $limit = 10)
+    {
+        $query = new Query();
 
+        $boolQuery = new BoolQuery();
+
+        if (!\is_null($search)) {
+            $fieldQuery = new Query\MatchPhrasePrefix();
+            $fieldQuery->setField('name', $search);
+
+            $boolQuery->addMust($fieldQuery);
+        }
+
+        $query->setQuery($boolQuery);
+        $query->setSize($limit);
+
+        return $this->find($query);
+    }
 
     /*
     public function findOneBySomeField($value): ?Entry
