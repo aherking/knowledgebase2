@@ -60,21 +60,16 @@
         $(document).ready(function () {
             $('#password-submit').click(function() {
                 let password = $('#password').val();
-                $.ajax({
-                    url: '/profile/changepassword',
-                    type: 'POST',
-                    contentType: "application/json",
-                    dataType: 'json',
-                    data: password,
-                    success: function (response) {
-                        // redirect must be defined and must be true
+                console.log(password);
+                $.post('/profile/changepassword', {
+                    password: password
+                }, function (response) {
                         if (response.success) {
-                            $('#successpw').show();                        }
+                            $('#successpw').show();
+                        }
                     },
-                    error: function() {
-                        $('#errorpw').show();
-                    }
-                });
+                    'json'
+                );
             });
         });
 

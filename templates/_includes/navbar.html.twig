@@ -68,7 +68,10 @@
         </div>
     </div>
 </header>
-    {% block login_modal %}
+
+
+    {% if app.user is empty %}
+
     <!-- Modal for Login -->
     <div id="id01" class="modal">
         <form class="modal-content animate" action="/login" method="post">
@@ -103,5 +106,5 @@
             </div>
         </form>
     </div>
-        {% endblock %}
+    {% endif %}
 {% endblock %}
