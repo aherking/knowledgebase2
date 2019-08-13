@@ -59,13 +59,22 @@
     <script>
         $(document).ready(function () {
             $('#password-submit').click(function() {
-                let password = $('#password').val();
-                console.log(password);
+                let oldPW = $('#oldPW').val();
+                let newPW = $('#newPW').val();
+                let newPWConfirm = $('#newPWConfirm').val();
                 $.post('/profile/changepassword', {
-                    password: password
+                    oldPW: oldPW,
+                    newPW: newPW,
+                    newPWConfirm: newPWConfirm
                 }, function (response) {
                         if (response.success) {
+                            $('#errorpw').hide();
                             $('#successpw').show();
+                        }
+                        if (response.error)
+                        {
+                            $('#successpw').hide();
+                            $('#errorpw').show();
                         }
                     },
                     'json'

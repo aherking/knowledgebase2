@@ -36,15 +36,29 @@ class SecurityController extends AbstractController
      */
     public function changePassword (Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager)
     {
-
         $user = $this->getUser();
-        if ($user instanceof UserInterface) {
-            $plainPassword = $request->request->get('password');
-            $encoded = $encoder->encodePassword($user, $plainPassword);
+        $oldPassword = $request->get('oldPW');
+        $newPassword = $request->get('newPW');
+        $newPasswordConfirm = $request->get('newPWConfirm');
+        $checkPass = $encoder->isPasswordValid($user, $oldPassword);
+
+        if ($checkPass === true) {
+        }
+        else {
+            return new jsonresponse(array('error' => 'The current password is incorrect or you entered the wrong confirm'));
+        }
+        if ($newPassword === $newPasswordConfirm) {
+
+        } else
+        {
+            return new jsonresponse(array('error' => 'The Passwords are not equal'));
+
+        }
+            $encoded = $encoder->encodePassword($user, $newPasswordConfirm);
 
             $user->setPassword($encoded);
             $entityManager->flush($user);
-        }
+
 
         $response = new JsonResponse([ 'success' => 'true']);
         return $response;

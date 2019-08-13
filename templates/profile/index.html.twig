@@ -93,13 +93,27 @@
                     </div> -->
                     <div class="tab-pane" id="edit">
                         <form role="form" action="/profile/changepassword" method="post">
-                            <div id ="errorpw" class="alert alert-danger" style="display:none; ">Falsche Zugangsdaten - prüfe bitte den Benutzernamen und dein Passwort!</div>
-                            <div id ="successpw" class="alert alert-danger" style="display:none; ">Success</div>
+                            <div id ="errorpw" class="alert alert-danger" style="display:none; ">Ein unbekannter Fehler ist aufgetreten</div>
+                            <div id ="successpw" class="alert alert-success" style="display:none; ">Passwort wurde erfolgreich geändert</div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-lg-3 col-form-label form-control-label">Password</label>
+                                <label for="oldPW" class="col-lg-3 col-form-label form-control-label">Altes Passwort</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="password" name="password" id="password">
+                                    <input class="form-control" type="password" name="oldPW" id="oldPW">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="newPW" class="col-lg-3 col-form-label form-control-label">Neues Passwort</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="password" name="newPW" id="newPW">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="newPWConfirm" class="col-lg-3 col-form-label form-control-label">Neues Passwort bestätigen</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="password" name="newPWConfirm" id="newPWConfirm">
                                 </div>
                             </div>
 
