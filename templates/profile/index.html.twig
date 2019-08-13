@@ -1,145 +1,69 @@
 {% extends 'start/index.html.twig' %}
 
 {% block content %}
+
     <div class="container">
-        <div class="row my-2">
-            <div class="col-lg-8 order-lg-2">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
-                    </li>
-                 <!--   <li class="nav-item">
-                        <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Messages</a>
-                    </li> -->
-                    <li class="nav-item">
-                        <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Profil bearbeiten</a>
-                    </li>
-                </ul>
-                <div class="tab-content py-4">
-                    <div class="tab-pane active" id="profile">
-                        <h5 class="mb-3">User Profil</h5>
-                        <div class="row">
-                             <div class="col-md-6">
-                                <h6>Username</h6>
-                                <p>
-                                   {{ app.user.username }}
-                                </p>
-                            </div> <!--
-                            <div class="col-md-6">
-                                <h6>Recent badges</h6>
-                                <a href="#" class="badge badge-dark badge-pill">html5</a>
-                                <a href="#" class="badge badge-dark badge-pill">react</a>
-                                <a href="#" class="badge badge-dark badge-pill">codeply</a>
-                                <a href="#" class="badge badge-dark badge-pill">angularjs</a>
-                                <a href="#" class="badge badge-dark badge-pill">css3</a>
-                                <a href="#" class="badge badge-dark badge-pill">jquery</a>
-                                <a href="#" class="badge badge-dark badge-pill">bootstrap</a>
-                                <a href="#" class="badge badge-dark badge-pill">responsive-design</a>
-                                <hr>
-                                <span class="badge badge-primary"><i class="fa fa-user"></i> 900 Followers</span>
-                                <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Forks</span>
-                                <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Views</span>
-                            </div> -->
-                            <div class="col-md-12">
-                                <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Letzte Aktivitäten</h5>
-                                <table class="table table-sm table-hover table-striped">
-                                    <tbody>
-                                    {% for entry in entries %}
-                                    <tr>
-                                        <td>
-                                            <strong>{{ app.user.username }}</strong> hat den Eintrag  <strong> <a href="{{ path('entry_show', {'id': entry.id}) }}"><i class="fas fa-file-alt" title="Entry"></i> {{ entry.name }} </a></strong> erstellt.
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!--/row-->
-                    </div>
-                  <!--  <div class="tab-pane" id="messages">
-                        <div class="alert alert-info alert-dismissable">
-                            <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>. Use this to show important messages to the user.
-                        </div>
-                        <table class="table table-hover table-striped">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <span class="float-right font-weight-bold">3 hrs ago</span> Here is your a link to the latest summary report from the..
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="float-right font-weight-bold">Yesterday</span> There has been a request on your account since that was..
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="float-right font-weight-bold">9/10</span> Porttitor vitae ultrices quis, dapibus id dolor. Morbi venenatis lacinia rhoncus.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="float-right font-weight-bold">9/4</span> Vestibulum tincidunt ullamcorper eros eget luctus.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="float-right font-weight-bold">9/4</span> Maxamillion ais the fix for tibulum tincidunt ullamcorper eros.
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div> -->
-                    <div class="tab-pane" id="edit">
-                        <form role="form" action="/profile/changepassword" method="post">
-                            <div id ="errorpw" class="alert alert-danger" style="display:none; ">Ein unbekannter Fehler ist aufgetreten</div>
-                            <div id ="successpw" class="alert alert-success" style="display:none; ">Passwort wurde erfolgreich geändert</div>
+        <div class="row">
+            <div class="col-md-3 ">
+                <div class="list-group ">
+                    <a href="" class="list-group-item list-group-item-action active" data-target="#profile" data-toggle="tab">Passwort ändern</a>
+                    <a href="" class="list-group-item list-group-item-action" data-target="#entries" data-toggle="tab">Letzte Einträge</a>
 
-                            <div class="form-group row">
-                                <label for="oldPW" class="col-lg-3 col-form-label form-control-label">Altes Passwort</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="password" name="oldPW" id="oldPW">
-                                </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <label for="newPW" class="col-lg-3 col-form-label form-control-label">Neues Passwort</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="password" name="newPW" id="newPW">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="newPWConfirm" class="col-lg-3 col-form-label form-control-label">Neues Passwort bestätigen</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="password" name="newPWConfirm" id="newPWConfirm">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label"></label>
-                                <div class="col-lg-9">
-                                    <input type="button" id="password-submit" class="btn btn-primary" value="Save Changes">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                 </div>
             </div>
-            <div class="col-lg-4 order-lg-1 text-center">
-                <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-                <h6 class="mt-2">Upload a different photo</h6>
-                <label class="custom-file">
-                    <input type="file" id="file" class="custom-file-input">
-                    <span class="custom-file-control">Choose file</span>
-                </label>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12" >
+                                <h4>Profil von {{ app.user.username }}</h4>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form>
+                                    <div class="form-group row">
+                                    </div>
+                                    <div id ="errorpw" class="alert alert-danger" style="display:none; ">Ein unbekannter Fehler ist aufgetreten</div>
+                                    <div id ="successpw" class="alert alert-success" style="display:none; ">Passwort wurde erfolgreich geändert</div>
+
+                                    <div class="form-group row">
+                                        <label for="oldPW" class="col-4 col-form-label">Altes Passwort</label>
+                                        <div class="col-8">
+                                            <input class="form-control" type="password" name="oldPW" id="oldPW">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="newPW" class="col-4 col-form-label">Neues Passwort</label>
+                                        <div class="col-8">
+                                            <input class="form-control" type="password" name="newPW" id="newPW">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="newPWConfirm" class="col-4 col-form-label">Neues Passwort bestätigen</label>
+                                        <div class="col-8">
+                                            <input class="form-control" type="password" name="newPWConfirm" id="newPWConfirm">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label"></label>
+                                        <div class="offset-4 col-8">
+                                            <input type="button" id="password-submit" class="btn btn-primary" value="Passwort ändern">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-
-{% endblock %}
-
-{% block login_modal %}
 {% endblock %}
