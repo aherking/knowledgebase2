@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class EntryController
@@ -60,7 +61,7 @@ class EntryController extends AbstractController
     /**
      * @Route("entry/new/create", name="entry_new_create", methods={"POST"})
      */
-    public function create(Request $request)
+    public function create(Request $request, ValidatorInterface $validator)
     {
             $entityManager = $this->getDoctrine()->getManager();
             $created = new \DateTime();
@@ -81,6 +82,12 @@ class EntryController extends AbstractController
                 ->getRepository((Tag::class))
                 ->findOneBy(array('id' => $tag));
                 $entry->addTagID($tagID);
+            }
+            $errors = $validator->validate($entry);
+            if (count($errors) > 0)
+            {
+                $errorString = (string) $errors;
+                return new Response($errorString);
             }
             $entityManager->persist($entry);
             $entityManager->flush();
