@@ -4,6 +4,7 @@
 
     <!-- MAIN SECTION -->
     <div class="container featured-area-default padding-30">
+
         <div class="row">
             <!-- ARTICLE OVERVIEW SECTION -->
             <div class="col-md-12 padding-20>
@@ -16,6 +17,7 @@
                 </ol>
             </div>
             <!-- END BREADCRUMBS -->
+
                     <!-- ARTICLES -->
                     <div class="fb-heading">
                         All Articles
@@ -88,6 +90,7 @@
         </ul>
     </nav>
     <!-- END PAGINATION -->
+    <!-- END ARTICLES OVERVIEW SECTION-->
     <!-- POPULAR TAGS (SHOW MAX 20 TAGS) -->
     <div class="row margin-top-20">
         <div class="col-md-12">
@@ -96,31 +99,13 @@
             </div>
             <hr class="style-three">
             <div class="fat-content-tags padding-left-10">
-                <a href="#" class="btn btn-outline-secondary btn-sm">password</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">settings</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">sign up</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">currency</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">payment</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">user</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">database</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">storage</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">export</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">email</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">import</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">campaign</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">edit</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">orders</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">help</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">billing</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">user</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">configure</a>
-                <a href="#" class="btn btn-outline-secondary btn-sm">customer</a>
+                {% for tag in tags %}
+                    <a href="#" class="btn btn-outline-secondary btn-sm">{{ tag.name }}</a>
+                {%  endfor %}
+
             </div>
         </div>
     </div>
     <!-- END POPULAR TAGS (SHOW MAX 20 TAGS) -->
-    </div>
-            <!-- END ARTICLES OVERVIEW SECTION-->
-
     <!-- END MAIN SECTION -->
 {% endblock %}
