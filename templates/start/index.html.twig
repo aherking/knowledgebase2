@@ -19,7 +19,7 @@
                             </div>
                             <ul class="list">
                                 {% for entry in tag.getEntries if entry.active %}
-                                <li><a href="{{ path('entry_show', {'id' : entry.id}) }}"> {{ entry.name }} </a>
+                                <li><a href="{{ path('entry_show', {'id' : entry.id }) }}"> {{ entry.name }} </a>
                                 </li>
                                 {% endfor %}
                             </ul>
