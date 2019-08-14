@@ -20,6 +20,8 @@ class SearchController extends AbstractController
 
     /**
      * @Route("/search", name="search_index")
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request)
     {

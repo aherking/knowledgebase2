@@ -19,6 +19,8 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
+     * @param Request $request
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function login(Request $request)
     {
@@ -31,8 +33,13 @@ class SecurityController extends AbstractController
             return $this->redirect("/");
         }
     }
+
     /**
      * @Route("/profile/changepassword", name="change_password")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @param EntityManagerInterface $entityManager
+     * @return JsonResponse
      */
     public function changePassword (Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager)
     {
