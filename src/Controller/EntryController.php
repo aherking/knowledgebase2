@@ -58,8 +58,13 @@ class EntryController extends AbstractController
             'tags' => $tags,
         ]);
     }
+
     /**
      * @Route("entry/new/create", name="entry_new_create", methods={"POST"})
+     * @param Request $request
+     * @param ValidatorInterface $validator
+     * @return Response
+     * @throws \Exception
      */
     public function create(Request $request, ValidatorInterface $validator)
     {
@@ -76,6 +81,13 @@ class EntryController extends AbstractController
             $entry->setUser($this->getUser());
             $tags = $request->request->get('TagSelect');
 
+            $errors = $validator->validate($entry);
+            if (count($errors) > 0)
+            {
+                $errorString = (string) $errors;
+                return new Response($errorString);
+            }
+
             foreach($tags as $tag)
             {
                 $tagID = $this->getDoctrine()
@@ -83,12 +95,7 @@ class EntryController extends AbstractController
                 ->findOneBy(array('id' => $tag));
                 $entry->addTagID($tagID);
             }
-            $errors = $validator->validate($entry);
-            if (count($errors) > 0)
-            {
-                $errorString = (string) $errors;
-                return new Response($errorString);
-            }
+
             $entityManager->persist($entry);
             $entityManager->flush();
 

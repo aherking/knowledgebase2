@@ -1,28 +1,126 @@
 {% extends 'start/index.html.twig' %}
 
 {% block content %}
-    <div class="container">
-            <div class="container">
-                <h1 class="my-4">Neue Einträge</h1>
+
+    <!-- MAIN SECTION -->
+    <div class="container featured-area-default padding-30">
+        <div class="row">
+            <!-- ARTICLE OVERVIEW SECTION -->
+            <div class="col-md-12 padding-20>
                 <div class="row">
-                    {% for entry in entries %}
-                        <div class="col-lg-4 col-sm-6 mb-4">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="{{ path('entry_show', {'id': entry.id}) }}"><i class="fas fa-file-alt" title="Entry"></i> {{ entry.name }} </a>
-                                    </h4>
-                                    <p class="card-text">{{ entry.error }}</p>
-                                </div>
+            <!-- BREADCRUMBS -->
+            <div class="breadcrumb-container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
+                    <li class="breadcrumb-item active">All Articles</li>
+                </ol>
+            </div>
+            <!-- END BREADCRUMBS -->
+                    <!-- ARTICLES -->
+                    <div class="fb-heading">
+                        All Articles
+                    </div>
+
+            {% for entry in entries %}
+            <div class="card card-default">
+                        <div class="article-heading-abb">
+                            <a href="{{ path('entry_show', {'id': entry.id}) }}">
+                                <i class="fa fa-pencil-square-o"></i>{{ entry.name }}</a>
+                        </div>
+                        <div class="article-info">
+                            <div class="art-date">
+                                <a href="#">
+                                    <i class="fa fa-calendar-o"></i> {{ entry.created ? entry.created|date('d.m.Y') : '' }}</a>
+                            </div>
+                            <div class="art-category">
+                                {% for tag in entry.getTagId() %}
+                                    {% if tag.main %}
+                                <a href="{{ path('tag_show', {'id': tag.id}) }}">
+                                    <i class="fa fa-folder"></i> {{ tag.name }} </a>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
-                    {% endfor %}
+                        <div class="article-content">
+                            <p class="block-with-text">
+                            <h5>
+                                Workflow
+                                <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#workflowcollapse" aria-expanded="false" aria-controls="workflowcollapse"></i></small>
+                            </h5>
+                            <p class="collapse show" id="workflowcollapse">
+                                {{ entry.workflow }}
+                            </p>
+                            <h5>
+                                Error-Message
+                                <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#errorcollapse" aria-expanded="false" aria-controls="errorcollapse"></i></small>
+                            </h5>
+                            <p class="collapse" id="errorcollapse">
+                                {{ entry.error }}
+                            </p>
+                            <h5>
+                                Lösung
+                                <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#solutioncollapse" aria-expanded="false" aria-controls="solutioncollapse"></i></small>
+                            </h5>
+                            <p class="collapse show" id="solutioncollapse">
+                                {{ entry.solution }}
+                            </p>
+                            </p>
+                        </div>
+
+                    </div>
+            {% endfor %}
+
                 </div>
 
-                <!-- /.row -->
-
-
             </div>
+
+    <!-- PAGINATION -->
+    <nav class="text-center">
+        <ul class="pagination pagination-sm ">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-arrow-circle-left"></i> Previous</span></a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
+            <li class="page-item enabled"><a class="page-link" href="#">2 <span class="sr-only">(current)</span></a></li>
+            <li class="page-item enabled"><a class="page-link" href="#">3 <span class="sr-only">(current)</span></a></li>
+            <li class="page-item enabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">Next <i class="fa fa-arrow-circle-right"></i></span></a>
+            </li>
+        </ul>
+    </nav>
+    <!-- END PAGINATION -->
+    <!-- POPULAR TAGS (SHOW MAX 20 TAGS) -->
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <div class="fb-heading-small">
+                Popular Tags
+            </div>
+            <hr class="style-three">
+            <div class="fat-content-tags padding-left-10">
+                <a href="#" class="btn btn-outline-secondary btn-sm">password</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">settings</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">sign up</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">currency</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">payment</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">user</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">database</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">storage</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">export</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">email</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">import</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">campaign</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">edit</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">orders</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">help</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">billing</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">user</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">configure</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">customer</a>
+            </div>
+        </div>
     </div>
+    <!-- END POPULAR TAGS (SHOW MAX 20 TAGS) -->
+    </div>
+            <!-- END ARTICLES OVERVIEW SECTION-->
+
+    <!-- END MAIN SECTION -->
 {% endblock %}
