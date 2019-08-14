@@ -47,23 +47,23 @@
                             <p class="block-with-text">
                             <h5>
                                 Workflow
-                                <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#workflowcollapse" aria-expanded="false" aria-controls="workflowcollapse"></i></small>
+                                <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#workflowcollapse{{ entry.id }}" aria-expanded="false" aria-controls="workflowcollapse"></i></small>
                             </h5>
-                            <p class="collapse show" id="workflowcollapse">
+                            <p class="collapse show" id="workflowcollapse{{ entry.id }}">
                                 {{ entry.workflow }}
                             </p>
                             <h5>
                                 Error-Message
-                                <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#errorcollapse" aria-expanded="false" aria-controls="errorcollapse"></i></small>
+                                <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#errorcollapse{{ entry.id }}" aria-expanded="false" aria-controls="errorcollapse"></i></small>
                             </h5>
-                            <p class="collapse" id="errorcollapse">
+                            <p class="collapse" id="errorcollapse{{ entry.id }}">
                                 {{ entry.error }}
                             </p>
                             <h5>
                                 Lösung
-                                <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#solutioncollapse" aria-expanded="false" aria-controls="solutioncollapse"></i></small>
+                                <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#solutioncollapse{{ entry.id }}" aria-expanded="false" aria-controls="solutioncollapse"></i></small>
                             </h5>
-                            <p class="collapse show" id="solutioncollapse">
+                            <p class="collapse show" id="solutioncollapse{{ entry.id }}">
                                 {{ entry.solution }}
                             </p>
                             </p>
