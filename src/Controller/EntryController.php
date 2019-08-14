@@ -4,12 +4,25 @@ use App\Entity\Tag;
 use App\Entity\Entry;
 use App\Entity\Modus;
 use App\Entity\User;
-use http\Env\Request;
-use http\Env\Response;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * Class EntryController
+ * @package App\Controller
+ */
 class EntryController extends AbstractController
 {
+    protected $em;
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+
+    }
+
     /**
      * @Route("/entry")
      */
@@ -29,6 +42,52 @@ class EntryController extends AbstractController
             'tags' => $tags,
             'users' => $users
         ]);
+    }
+
+    /**
+     * @Route("entry/new", name="entry_new", methods={"GET", "POST"})
+     */
+    public function new()
+    {
+        $tags = $this->getDoctrine()
+            ->getRepository((Tag::class))
+            ->findAll();
+
+
+        return $this->render('entry/new.html.twig', [
+            'tags' => $tags,
+        ]);
+    }
+    /**
+     * @Route("entry/new/create", name="entry_new_create", methods={"POST"})
+     */
+    public function create(Request $request)
+    {
+            $entityManager = $this->getDoctrine()->getManager();
+            $created = new \DateTime();
+            $entry = new Entry();
+            $entry->setActive(1);
+            $entry->setName($request->request->get('InputTitel'));
+            $entry->setWorkflow($request->request->get('InputWorkflow'));
+            $entry->setSolution($request->request->get('InputSolution'));
+            $entry->setError($request->request->get('InputError'));
+            $entry->setCreated($created);
+            $entry->setChanged($created);
+            $entry->setUser($this->getUser());
+            $tags = $request->request->get('TagSelect');
+
+            foreach($tags as $tag)
+            {
+                $tagID = $this->getDoctrine()
+                ->getRepository((Tag::class))
+                ->findOneBy(array('id' => $tag));
+                $entry->addTagID($tagID);
+            }
+            $entityManager->persist($entry);
+            $entityManager->flush();
+
+        return new Response('Saved new product with id '.$entry->getName());
+
     }
     /**
      * @Route("entry/{id}", name="entry_show", methods={"GET"})
@@ -53,16 +112,5 @@ class EntryController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("entry/new/{id}", name="entry_new", methods={"GET"})
-     */
-    public function new()
-    {
-        $tags = $this->getDoctrine()
-            ->getRepository((Tag::class))
-            ->findAll();
-        return $this->render('entry/new.html.twig', [
-            'tags' => $tags,
-        ]);
-    }
+
 }
