@@ -34,9 +34,18 @@
         </p>
         <p>
         <h4>Tags</h4>
-        {% for tag in entry.getTagId() %}
-                <a href="{{ path('tag_show', {'id': tag.id}) }}"><i class="fas fa-tags" title="Tag"></i> {{ tag.name }} </a>
-        {% endfor %}
+        <div>
+            <h5>Main</h5>
+            {% for tag in entry.getTagId() %}
+                {% if tag.main %}<a href="{{ path('tag_show', {'id': tag.id}) }}"><i class="fas fa-tags" title="Tag"></i> {{ tag.name }}</a> {% endif %}
+            {% endfor %}
+        </div>
+        <div>
+            <h5>Weitere</h5>
+            {% for tag in entry.getTagId() %}
+                {% if tag.main == 0 %}<a href="{{ path('tag_show', {'id': tag.id}) }}"><i class="fas fa-tags" title="Tag"></i> {{ tag.name }} ({{ tag.modus }})</a> {% endif %}
+            {% endfor %}
+        </div>
         </p>
     </div>
 {%  endblock %}

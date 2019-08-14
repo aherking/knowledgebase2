@@ -39,6 +39,11 @@ class Tag
      */
     private $entries;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Modus", inversedBy="tags")
+     */
+    private $modus;
+
     public function __construct()
     {
         $this->entries = new ArrayCollection();
@@ -115,5 +120,17 @@ class Tag
 
     public function __toString() {
         return $this->name;
+    }
+
+    public function getModus(): ?Modus
+    {
+        return $this->modus;
+    }
+
+    public function setModus(?Modus $modus): self
+    {
+        $this->modus = $modus;
+
+        return $this;
     }
 }
