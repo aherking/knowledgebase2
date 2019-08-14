@@ -29,10 +29,22 @@
                 <textarea rows="5" type="html" class="collapse show form-control" id="InputSolution" placeholder="Wie kann das Verhalten behoben werden"></textarea>
             </div>
             <div>
+                <label for="TagSelect">Main Tag</label>
+                <select class="custom-select" id="TagSelect" >
+                    {% for tag in tags %}
+                        {% if tag.main %}
+                            <option value="{{ tag.id }}"> {{ tag.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
                 <label for="TagSelect">Tags</label>
                 <select class="custom-select" id="TagSelect" multiple>
                     {% for tag in tags %}
-                            <option value="{{ tag.id }}"> {{ tag.name }} {% if tag.main %}(main){% endif %}</option>
+                        {% if tag.main == 0 %}
+                            <option value="{{ tag.id }}"> {{ tag.name }} ({{ tag.modus }})</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
             </div>

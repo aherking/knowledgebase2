@@ -2,6 +2,7 @@
 namespace App\Controller;
 use App\Entity\Tag;
 use App\Entity\Entry;
+use App\Entity\Modus;
 use App\Entity\User;
 use http\Env\Request;
 use http\Env\Response;

@@ -28,14 +28,30 @@
             <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#InputSolution" aria-expanded="false" aria-controls="InputSolution"></i></small>
             <textarea rows="5" type="html" class="collapse show form-control" id="InputSolution">{{ entry.solution }}</textarea>
         </div>
+            <div>
+                <label for="TagSelect">Main Tag</label>
+                <select class="custom-select" id="TagSelect">
+                    {% for tag in tags %}
+                        {% if tag.main %}
+                            {% if tag in entry.getTagId() %}
+                                <option selected value="{{ tag.id }}"> {{ tag.name }}</option>
+                            {% else %}
+                                <option value="{{ tag.id }}"> {{ tag.name }}</option>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
         <div>
             <label for="TagSelect">Tags</label>
             <select class="custom-select" id="TagSelect" multiple>
                 {% for tag in tags %}
-                    {% if tag in entry.getTagId() %}
-                        <option selected value="{{ tag.id }}"> {{ tag.name }} {% if tag.main %}(main){% endif %}</option>
-                    {% else %}
-                        <option value="{{ tag.id }}"> {{ tag.name }} {% if tag.main %}(main){% endif %}</option>
+                    {% if tag.main == 0 %}
+                        {% if tag in entry.getTagId() %}
+                            <option selected value="{{ tag.id }}"> {{ tag.name }} ({{ tag.modus }}) </option>
+                        {% else %}
+                            <option value="{{ tag.id }}"> {{ tag.name }} ({{ tag.modus }})</option>
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
             </select>

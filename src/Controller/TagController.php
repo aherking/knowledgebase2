@@ -5,6 +5,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Tag;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Entry;
+use App\Entity\Modus;
 
 class TagController extends AbstractController
 {
@@ -18,7 +19,6 @@ class TagController extends AbstractController
         $tags = $this->getDoctrine()
             ->getRepository((Tag::class))
             ->findBy($criteria);
-
         return $this->render('/start/index.html.twig', [ 'tags' => $tags
         ]);
     }
@@ -61,8 +61,12 @@ class TagController extends AbstractController
      */
     public function edit(Tag $tag)
     {
+        $modes = $this->getDoctrine()
+            ->getRepository((Modus::class))
+            ->findAll();
         return $this->render('tag/edit.html.twig', [
             'tag' => $tag,
+            'modes' => $modes,
         ]);
     }
 
@@ -71,7 +75,11 @@ class TagController extends AbstractController
      */
     public function new()
     {
+        $modes = $this->getDoctrine()
+            ->getRepository((Modus::class))
+            ->findAll();
         return $this->render('tag/new.html.twig', [
+            'modes' => $modes
         ]);
     }
 }
