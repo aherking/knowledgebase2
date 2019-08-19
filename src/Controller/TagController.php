@@ -9,24 +9,9 @@ use App\Entity\Entry;
 class TagController extends AbstractController
 {
     /**
-     * @Route("/", name="tag_index", methods={"GET"})
-     */
-
-    public function index()
-    {
-        $criteria = ['main' => 1];
-        $tags = $this->getDoctrine()
-            ->getRepository((Tag::class))
-            ->findBy($criteria);
-
-        return $this->render('/start/index.html.twig', [ 'tags' => $tags
-        ]);
-    }
-
-    /**
      * @Route("/tag")
      */
-    public function index2()
+    public function index()
     {
         $maincriteria = ['main' => 1];
         $childcriteria = ['main' => 0];
@@ -39,7 +24,7 @@ class TagController extends AbstractController
         $maintags = $this->getDoctrine()
             ->getRepository((Tag::class))
             ->findBy($maincriteria);
-        return $this->render('/tag/index2.html.twig', [
+        return $this->render('/tag/index.html.twig', [
             'entries' => $entries,
             'tags' => $tags,
             'maintags' => $maintags,
