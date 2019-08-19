@@ -21,6 +21,18 @@
                 <label class="custom-control-label" for="mainCheckbox">Main</label>
                 <input type="checkbox" class="custom-control-input" id="mainCheckbox">
             </div>
+            <div>
+                <label for="ModusSelect">Modus</label>
+                <select class="custom-select" id="MainSelect">
+                    {% for modus in modes %}
+                        {% if modus in tag.getModus() %}
+                            <option selected value="{{ modus.id }}"> {{ modus.name }}</option>
+                        {% else %}
+                            <option value="{{ modus.id }}"> {{ modus.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Speichern</button>
         </form>
     {% endblock %}
