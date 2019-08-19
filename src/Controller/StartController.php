@@ -13,15 +13,16 @@ class StartController extends AbstractController
     {
         $criteria = ['main' => 1];
         $tags = $this->getDoctrine()
-            ->getRepository((Tag::class))
+            ->getRepository(Tag::class)
             ->findBy($criteria);
+
         $entries = $this->getDoctrine()
             ->getRepository(Entry::class)
             ->findAll();
 
         return $this->render('/start/index.html.twig', [
-            'tags' => $tags,
-            'entries' => $entries
+            'entries' => $entries,
+            'tags' => $tags
         ]);
     }
 }

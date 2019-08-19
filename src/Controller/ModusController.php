@@ -10,11 +10,11 @@ use App\Entity\Entry;
 class ModusController extends AbstractController
 {
     /**
-     * @Route("/", name="tag_index", methods={"GET"})
+     * @Route("/modus", name="modus_index", methods={"GET"})
      */
 
     public function index()
     {
-          return $this->render('/start/index.html.twig');
+          return true;
     }
 }
