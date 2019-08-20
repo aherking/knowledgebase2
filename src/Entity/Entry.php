@@ -30,7 +30,6 @@ class Entry
 
     /**
      * @Assert\NotBlank
-     * @Assert\Unique
      * @Assert\Length(min=3)
      * @ORM\Column(type="string", length=255)
      */
