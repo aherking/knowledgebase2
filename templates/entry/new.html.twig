@@ -28,17 +28,26 @@
                 <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#InputSolution" aria-expanded="false" aria-controls="InputSolution"></i></small>
                 <textarea rows="5" type="html" class="collapse show form-control" name="entry[solution]" placeholder="Wie kann das Verhalten behoben werden"></textarea>
             </div>
-
             <div>
-                <label for="TagSelect">Tags</label>
+                <label for="TagSelect">Main Tag</label>
                 <select class="custom-select" name="entry[tagID][]" multiple>
+                    <option value="" disabled selected>Wähle deine Main Tags</option>
+
                     {% for tag in tags %}
-                        {% if tag.main == 0 %}
-                            <option value="{{ tag.id }}"> {{ tag.name }} ({{ tag.modus }})</option>
+                        {% if tag.main %}
+                            <option value="{{ tag.id }}"> {{ tag.name }}</option>
                         {% endif %}
+                    {% endfor %}
+                            <option value="" disabled selected>Wähle weitere Tags</option>
+                    {% for tag in tags %}
+                    {% if tag.main == 0 %}
+                        <option value="{{ tag.id }}"> {{ tag.name }} ({{ tag.modus }})</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>
+
+
             <button type="submit" class="btn btn-primary">Speichern</button>
         </form>
     {% endblock %}

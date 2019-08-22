@@ -50,22 +50,7 @@ class EntryController extends AbstractController
     }
 
     /**
-     * @Route("entry/new", name="entry_new", methods={"GET", "POST"})
-     */
-    public function new()
-    {
-        $tags = $this->getDoctrine()
-            ->getRepository((Tag::class))
-            ->findAll();
-
-
-        return $this->render('entry/new.html.twig', [
-            'tags' => $tags,
-        ]);
-    }
-
-    /**
-     * @Route("entry/new2", name="entry_new2", methods={"GET", "POST"})
+     * @Route("entry/new", name="entry_new2", methods={"GET", "POST"})
      */
     public function new(Request $request)
     {
