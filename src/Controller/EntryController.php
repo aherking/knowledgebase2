@@ -60,11 +60,7 @@ class EntryController extends AbstractController
 
         $entry = new Entry();
         $entry->setUser($this->getUser());
-        $entry->setCreated(new \DateTime());
         $entry->setActive(1);
-        $entry->setChanged(new \DateTime());
-
-
 
         $form = $this->createForm(EntryFormType::class, $entry);
         $form->handleRequest($request);
