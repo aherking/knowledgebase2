@@ -52,7 +52,7 @@ class EntryController extends AbstractController
     }
 
     /**
-     * @Route("entry/new", name="entry_new2", methods={"GET", "POST"})
+     * @Route("entry/new", name="entry_new", methods={"GET", "POST"})
      */
     public function new(Request $request)
     {
@@ -70,15 +70,20 @@ class EntryController extends AbstractController
         if ($form->isSubmitted()) {
 
             if(!$form->isValid()) {
-                return new Response($form->getErrors(true));
+                $this->addFlash(
+                    'danger',
+                    'Formular ungültig'
+                );
+                return $this->redirectToRoute('entry_new');
             }
 
             $this->entryService->persist($entry);
-
-            return $this->redirectToRoute('entry_new"');
+            $this->addFlash(
+                'success',
+                'Artikel wurde erfolgreich gespeichert '
+            );
+            return $this->redirectToRoute('entry_new');
         }
-
-
 
         return $this->render('entry/new.html.twig',  [
                 'tags' => $tags,
@@ -112,12 +117,19 @@ class EntryController extends AbstractController
         if ($form->isSubmitted()) {
 
             if(!$form->isValid()) {
-                return new Response($form->getErrors(true));
+                $this->addFlash(
+                    'danger',
+                    'Formular ungültig'
+                );
+                return $this->redirectToRoute('entry_edit', array('id' => $entry->getId()));
             }
 
             $this->entryService->persist($entry);
-
-            return new Response('läuft');
+            $this->addFlash(
+                'success',
+                'Artikel wurde erfolgreich gespeichert '
+            );
+            return $this->redirectToRoute('entry_edit', array('id' => $entry->getId()));
         }
 
         return $this->render('entry/edit.html.twig', [

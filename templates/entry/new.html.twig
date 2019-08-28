@@ -6,6 +6,13 @@
     {%  block content %}
         <form class="container"  method="POST">
             <h1 class="my-4">Eintrag erstellen</h1>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
             <div class="form-group">
                 <label for="InputTitel">Titel</label>
                 <input type="text" class="form-control" id="InputTitel" name="entry[name]" placeholder="Bitte vergib einen aussagekräftigen Titel">
@@ -33,11 +40,7 @@
                 <select class="custom-select" name="entry[tagID][]">
                     {% for tag in tags %}
                         {% if tag.main %}
-                            {% if tag in entry.getTagId() %}
-                                <option selected value="{{ tag.id }}"> {{ tag.name }}</option>
-                            {% else %}
                                 <option value="{{ tag.id }}"> {{ tag.name }}</option>
-                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </select>
