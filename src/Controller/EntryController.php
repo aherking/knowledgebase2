@@ -96,13 +96,30 @@ class EntryController extends AbstractController
         ]);
     }
     /**
-     * @Route("entry/edit/{id}", name="entry_edit", methods={"GET"})
+     * @Route("entry/edit/{id}", name="entry_edit", methods={"GET", "POST"})
      */
-    public function edit(Entry $entry)
+    public function edit(Entry $entry, Request $request)
     {
         $tags = $this->getDoctrine()
             ->getRepository((Tag::class))
             ->findAll();
+
+        $form = $this->createForm(EntryFormType::class, $entry);
+        $form->handleRequest($request);
+        $entry->setUser($this->getUser());
+        $entry->setActive(1);
+
+        if ($form->isSubmitted()) {
+
+            if(!$form->isValid()) {
+                return new Response($form->getErrors(true));
+            }
+
+            $this->entryService->persist($entry);
+
+            return new Response('läuft');
+        }
+
         return $this->render('entry/edit.html.twig', [
             'entry' => $entry,
             'tags' => $tags,
