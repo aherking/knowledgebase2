@@ -24,5 +24,7 @@ class StartController extends AbstractController
             'entries' => $entries,
             'tags' => $tags
         ]);
+
+
     }
 }

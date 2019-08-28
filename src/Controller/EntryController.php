@@ -5,6 +5,7 @@ use App\Entity\Entry;
 use App\Entity\Modus;
 use App\Entity\User;
 use App\Form\EntryFormType;
+use App\Service\EntryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,10 +23,11 @@ class EntryController extends AbstractController
      * @var EntityManagerInterface
      */
     protected $em;
-    public function __construct(EntityManagerInterface $em)
+    protected $entryService;
+    public function __construct(EntityManagerInterface $em, EntryService $entryService)
     {
         $this->em = $em;
-
+        $this->entryService = $entryService;
     }
 
     /**
@@ -65,18 +67,13 @@ class EntryController extends AbstractController
         $form = $this->createForm(EntryFormType::class, $entry);
         $form->handleRequest($request);
 
-
-
         if ($form->isSubmitted()) {
 
             if(!$form->isValid()) {
                 return new Response($form->getErrors(true));
             }
-            $entry = $form->getData();
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($entry);
-            $entityManager->flush();
+            $this->entryService->create($entry);
 
             return new Response('Saved new product with id '.$entry->getName());
         }
