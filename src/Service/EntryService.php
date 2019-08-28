@@ -15,7 +15,7 @@ class EntryService
     }
 
 
-    public function create(Entry $entry)
+    public function persist(Entry $entry)
     {
         $entityManager = $this->entityManager;
         $entityManager->persist($entry);
@@ -23,5 +23,13 @@ class EntryService
         $entityManager->refresh($entry);
 
     }
+
+    public function delete(Entry $entry)
+    {
+        $entityManager = $this->entityManager;
+        $entityManager->remove($entry);
+        $entityManager->flush();
+    }
+
 
 }

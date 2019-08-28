@@ -73,9 +73,9 @@ class EntryController extends AbstractController
                 return new Response($form->getErrors(true));
             }
 
-            $this->entryService->create($entry);
+            $this->entryService->persist($entry);
 
-            return new Response('Saved new product with id '.$entry->getName());
+            return $this->redirectToRoute('entry_new"');
         }
 
 
