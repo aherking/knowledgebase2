@@ -216,6 +216,7 @@ class Entry
 
     /**
      * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function setChangedValue()
     {
