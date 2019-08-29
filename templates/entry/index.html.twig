@@ -18,8 +18,8 @@
 
             <!-- Blog Entries Column -->
             <div class="col-md-12">
-                {% for entry in entries %}
-                <!-- Blog Post -->
+                {% for entry in paginator.results %}
+                    <!-- Blog Post -->
                 <div class="card mb-4">
                     <div class="card-body">
                         <a href="{{ path('entry_show', {'id': entry.id}) }}">  <h2 class="card-title">{{ entry.name }}</h2> </a>
@@ -71,15 +71,29 @@
                     </div>
                 </div>
                 {% endfor %}
+                {% if paginator.hasToPaginate %}
                 <!-- Pagination -->
                 <ul class="pagination justify-content-center mb-4">
+                    {% if paginator.hasPreviousPage %}
                     <li class="page-item">
-                        <a class="page-link" href="#">&larr; Older</a>
+                        <a class="page-link" href="{{ path('entry_index_paginated', {page: paginator.previousPage}) }}">&larr; Vorherige Seite</a>
                     </li>
+                    {% else %}
                     <li class="page-item disabled">
-                        <a class="page-link" href="#">Newer &rarr;</a>
+                        <a class="page-link" href="">&larr; Vorherige Seite</a>
                     </li>
+                    {% endif %}
+                    {% if paginator.hasNextPage %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ path('entry_index_paginated', {page: paginator.nextPage}) }}">Nächste Seite &rarr;</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="">Nächste Seite &rarr;</a>
+                        </li>
+                    {% endif %}
                 </ul>
+                {% endif %}
 
             </div>
 

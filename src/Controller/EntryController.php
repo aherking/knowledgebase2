@@ -5,6 +5,9 @@ use App\Entity\Entry;
 use App\Entity\Modus;
 use App\Entity\User;
 use App\Form\EntryFormType;
+use App\Repository\EntryRepository;
+use App\Repository\TagRepository;
+use App\Repository\UserRepository;
 use App\Service\EntryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,8 +20,12 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  * Class EntryController
  * @package App\Controller
  */
+/**
+ * @Route("/entry")
+ */
 class EntryController extends AbstractController
 {
+
     /**
      * @var EntityManagerInterface
      */
@@ -31,20 +38,23 @@ class EntryController extends AbstractController
     }
 
     /**
-     * @Route("/entry")
+     * @Route("/", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="entry_index")
+     * @Route("/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="entry_index_paginated")
+     *
+     * NOTE: For standard formats, Symfony will also automatically choose the best
+     * Content-Type header for the response.
+     * See https://symfony.com/doc/current/quick_tour/the_controller.html#using-formats
      */
-    public function index()
+    public function index(Request $request, int $page, EntryRepository $entries, TagRepository $tags, UserRepository $users)
     {
-        $entries = $this->getDoctrine()
-            ->getRepository(Entry::class)
-            ->findAll();
-        $tags = $this->getDoctrine()
-            ->getRepository((Tag::class))
-            ->findAll();
-        $users = $this->getDoctrine()
-            ->getRepository((User::class))
-            ->findAll();
+        $tag = null;
+        if ($request->query->has('tag')) {
+            $tag = $tags->findOneBy(['name' => $request->query->get('tag')]);
+        }
+        $latestPosts = $entries->findLatest($page, $tag);
+
         return $this->render('/entry/index.html.twig', [
+            'paginator' => $latestPosts,
             'entries' => $entries,
             'tags' => $tags,
             'users' => $users
