@@ -71,7 +71,7 @@ class EntryController extends AbstractController
     }
 
     /**
-     * @Route("new", name="entry_new", methods={"GET", "POST"})
+     * @Route("/new", name="entry_new", methods={"GET", "POST"})
      */
     public function new(Request $request, TagRepository $tags)
     {
@@ -107,7 +107,7 @@ class EntryController extends AbstractController
     }
 
     /**
-     * @Route("{id}", name="entry_show", methods={"GET"})
+     * @Route("/{id}", name="entry_show", methods={"GET"})
      */
     public function show(Entry $entry)
     {
@@ -116,7 +116,7 @@ class EntryController extends AbstractController
         ]);
     }
     /**
-     * @Route("edit/{id}", name="entry_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="entry_edit", methods={"GET", "POST"})
      */
     public function edit(Entry $entry, Request $request, TagRepository $tags)
     {
