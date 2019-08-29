@@ -63,18 +63,16 @@ class EntryController extends AbstractController
         $latestPosts = $entries->findLatest($page, $tag);
 
         return $this->render('/entry/index.html.twig', [
-            'paginator' => $latestPosts,
-            'entries' => $entries,
-            'tags' => $tags,
-            'users' => $users
+            'paginator' => $latestPosts
         ]);
     }
 
     /**
      * @Route("/new", name="entry_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, TagRepository $tags)
+    public function new(Request $request, TagRepository $tagRepository)
     {
+        $tags = $tagRepository->findAll();
         $entry = new Entry();
         $entry->setUser($this->getUser());
         $entry->setActive(1);
@@ -118,7 +116,7 @@ class EntryController extends AbstractController
     /**
      * @Route("/edit/{id}", name="entry_edit", methods={"GET", "POST"})
      */
-    public function edit(Entry $entry, Request $request, TagRepository $tags)
+    public function edit(Entry $entry, Request $request, TagRepository $tagRepository)
     {
         $form = $this->createForm(EntryFormType::class, $entry);
         $form->handleRequest($request);
@@ -142,6 +140,7 @@ class EntryController extends AbstractController
             );
             return $this->redirectToRoute('entry_edit', array('id' => $entry->getId()));
         }
+        $tags = $tagRepository->findAll();
 
         return $this->render('entry/edit.html.twig', [
             'entry' => $entry,
