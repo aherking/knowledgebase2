@@ -30,7 +30,16 @@ class EntryController extends AbstractController
      * @var EntityManagerInterface
      */
     protected $em;
+    /**
+     * @var EntryService
+     */
     protected $entryService;
+
+    /**
+     * EntryController constructor.
+     * @param EntityManagerInterface $em
+     * @param EntryService $entryService
+     */
     public function __construct(EntityManagerInterface $em, EntryService $entryService)
     {
         $this->em = $em;
@@ -64,12 +73,8 @@ class EntryController extends AbstractController
     /**
      * @Route("entry/new", name="entry_new", methods={"GET", "POST"})
      */
-    public function new(Request $request)
+    public function new(Request $request, TagRepository $tags)
     {
-        $tags = $this->getDoctrine()
-            ->getRepository((Tag::class))
-            ->findAll();
-
         $entry = new Entry();
         $entry->setUser($this->getUser());
         $entry->setActive(1);
@@ -113,12 +118,8 @@ class EntryController extends AbstractController
     /**
      * @Route("entry/edit/{id}", name="entry_edit", methods={"GET", "POST"})
      */
-    public function edit(Entry $entry, Request $request)
+    public function edit(Entry $entry, Request $request, TagRepository $tags)
     {
-        $tags = $this->getDoctrine()
-            ->getRepository((Tag::class))
-            ->findAll();
-
         $form = $this->createForm(EntryFormType::class, $entry);
         $form->handleRequest($request);
         $entry->setUser($this->getUser());
