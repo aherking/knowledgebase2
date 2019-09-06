@@ -13,10 +13,12 @@ class ExceptionController extends AbstractController
     public function showAction(FlattenException $exception)
     {
         $code = $exception->getStatusCode();
+        $message = $exception->getMessage();
 
         return new Response($this->render('exception.html.twig',
             [
-                'status_code' => $code
+                'status_code' => $code,
+                'message' => $message
             ]));
     }
 

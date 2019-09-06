@@ -33,7 +33,7 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
     public function start(Request $request, AuthenticationException $authException = null): Response
     {
 
-        throw new AccessDeniedHttpException();
+        throw new AccessDeniedHttpException('Insufficient Permissions');
 
     }
 }

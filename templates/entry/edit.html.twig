@@ -54,8 +54,11 @@
                 <select class="custom-select" name="entry[tagID][]" multiple>
                     {% for tag in tags %}
                         {% if tag.main == 0 %}
-                            <option value="{{ tag.id }}"> {{ tag.name }} ({{ tag.modus }})</option>
-                        {% endif %}
+                            {% if tag in entry.getTagId() %}
+                                <option selected value="{{ tag.id }}"> {{ tag.name }}</option>
+                            {% else %}
+                                <option value="{{ tag.id }}"> {{ tag.name }}</option>
+                            {% endif %}                        {% endif %}
                     {% endfor %}
                 </select>
             </div>

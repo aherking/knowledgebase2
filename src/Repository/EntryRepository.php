@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Entry;
 use App\Entity\Tag;
+use App\Entity\User;
 use App\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -37,5 +38,18 @@ class EntryRepository extends ServiceEntityRepository
                 ->setParameter('tag', $tag);
         }
         return (new Paginator($qb))->paginate($page);
+    }
+
+    public function findUser(User $user, int $page = 1) : Paginator
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->addSelect('u', 't')
+            ->innerJoin('e.user', 'u')
+            ->leftJoin('e.tagID', 't')
+            ->where('e.user = :user')
+            ->setParameter('user', $user);
+
+        return (new Paginator($qb))->paginate($page);
+
     }
 }
