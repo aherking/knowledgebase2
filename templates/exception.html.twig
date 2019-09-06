@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{%  block body %}
+
+    {% include '_includes/navbar.html.twig' %}
+
+    {% block content %}
+        <div class="container">
+
+            <h1 class="my-4" align="center">{{ status_code }}</h1>
+            <h1></h1>
+
+            <p align ="center">
+                {% if status_code == 404 %}
+                    The requested page couldn't be located. Checkout for any URL
+                    misspelling or <a href="{{ path('start') }}">return to the homepage</a>.
+                {% endif %}
+
+                {% if status_code == 403 %}
+                    Please login to get access to this page.
+                {% endif %}
+
+            </p>
+
+            <!-- /.row -->
+
+
+        </div>
+    {% endblock %}
+{% endblock %}
