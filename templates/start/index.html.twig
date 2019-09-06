@@ -6,24 +6,31 @@
 
     {% block content %}
     <div class="container">
+        <h1 class="my-4" align="center">Haupt Tags</h1>
+        <section class="topics">
+            <div class="container">
+                <div class="row">
 
-        <h1 class="my-4">Produkte</h1>
-        <div class="row">
-            {% for tag in tags %}
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">{{ tag.name }}</a>
-                        </h4>
-                        <p class="card-text">{{ tag.description }}</p>
+                    {% for tag in tags %}
+                        {% if tag.main %}
+                    <div class="col-xl-6 col-md-6">
+                        <div class="card card-default">
+                            <div class="card-header">
+                            <h3><a href="#"><span class="icon icon-circle-o text-blue"></span>{{ tag.name }}</a></h3>
+                            </div>
+                            <ul class="list">
+                                {% for entry in tag.getEntries if entry.active %}
+                                <li><a href="{{ path('entry_show', {'id' : entry.id }) }}"> {{ entry.name }} </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-            {% endfor %}
-
-        </div>
+        </section>
 
         <!-- /.row -->
 

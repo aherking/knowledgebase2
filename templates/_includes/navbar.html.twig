@@ -14,15 +14,6 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/entry">Einträge <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/new">Neue Einträge</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/top">Top Einträge</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/my">Meine Einträge</a>
-            </li>
         </ul>
 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
@@ -32,7 +23,8 @@
                         {{ app.user.username }}
                     {% endif %}            </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/profile">Mein Profil</a>
+                    <a class="dropdown-item" href="{{ path('profile_index') }}">Mein Profil</a>
+                    <a class="dropdown-item" href="{{ path('entry_new') }}">Eintrag erstellen</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
 
                 </div>
@@ -68,7 +60,10 @@
         </div>
     </div>
 </header>
-    {% block login_modal %}
+
+
+    {% if app.user is empty %}
+
     <!-- Modal for Login -->
     <div id="id01" class="modal">
         <form class="modal-content animate" action="/login" method="post">
@@ -86,10 +81,7 @@
                 <label for="password"><b>Password</b></label>
                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
 
-                <a id="login-submit" class="btn btn-primary btn-block">Sign in</a>
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
+                <a id="login-submit" class="btn btn-primary btn-block">Einloggen</a>
                 <input type="hidden" name="_csrf_token"
                        value="{{ csrf_token('authenticate') }}"
                 >
@@ -98,10 +90,10 @@
             </div>
 
             <div class="container" style="background-color:#f1f1f1">
-                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                <span class="psw">Forgot <a href="#">password?</a></span>
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Abbrechen</button>
+                <span class="psw">Passwort vergessen? Wende dich an André oder Janine!</span>
             </div>
         </form>
     </div>
-        {% endblock %}
+    {% endif %}
 {% endblock %}

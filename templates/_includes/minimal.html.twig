@@ -23,9 +23,19 @@
                 </li>
             </ul>
 
+
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <a href="/logout" type="button" class="btn btn-danger">Logout</a>
-            {% else %}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Hallo, {% if app.user %}
+                            {{ app.user.username }}
+                        {% endif %}            </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/profile">Mein Profil</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+
+                    </div>
+                </div>            {% else %}
                 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="btn btn-success">Login</button>
             {% endif %}
 

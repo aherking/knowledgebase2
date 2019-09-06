@@ -15,6 +15,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            entry_point: App\Security\AuthenticationEntryPoint
             logout:
                 path: app_logout
             anonymous: true
@@ -38,5 +39,6 @@ security:
         - { path: ^/entry/new, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/tag/new, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/entry/edit, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/tag, roles: ROLE_USER }
+        - { path: ^/tag, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/profile, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/profile, roles: ROLE_USER }

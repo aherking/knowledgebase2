@@ -5,12 +5,16 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Entries
  * @ORM\Entity(repositoryClass="App\Repository\EntryRepository")
  * @ORM\Table(name="entry", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})})
  * @ORM\Entity
+ * @HasLifecycleCallbacks
  */
 class Entry
 {
@@ -27,6 +31,8 @@ class Entry
     private $active;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\Length(min=3)
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -199,4 +205,23 @@ class Entry
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedValue()
+    {
+        $this->created = new \DateTime();
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setChangedValue()
+    {
+        $this->changed = new \DateTime();
+    }
+
+
 }

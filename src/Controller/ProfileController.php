@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+use App\Entity\Entry;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,6 +12,11 @@ class ProfileController extends AbstractController
      */
     public function index()
     {
-        return $this->render('/profile/index.html.twig');
+        $entries = $this->getDoctrine()
+            ->getRepository(Entry::class)
+            ->findBy(array('user' => $this->getUser()));
+
+        return $this->render('/profile/index.html.twig', [
+            'entries' => $entries]);
     }
 }

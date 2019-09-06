@@ -8,6 +8,8 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('/assets/css/entries.css') }}" >
+        <link rel="stylesheet" href="https://sunnyg1210.github.io/bootstrapKnowledgeBaseTheme/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
     {% endblock %}
@@ -15,6 +17,8 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
 </head>
 <body>
+
+
 {% block body %}
     <h1>Hello, world!</h1>
 {% endblock %}
@@ -52,6 +56,34 @@
                 }
             });
         });
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#password-submit').click(function() {
+                let oldPW = $('#oldPW').val();
+                let newPW = $('#newPW').val();
+                let newPWConfirm = $('#newPWConfirm').val();
+                $.post('/profile/changepassword', {
+                    oldPW: oldPW,
+                    newPW: newPW,
+                    newPWConfirm: newPWConfirm
+                }, function (response) {
+                        if (response.success) {
+                            $('#errorpw').hide();
+                            $('#successpw').show();
+                        }
+                        if (response.error)
+                        {
+                            $('#successpw').hide();
+                            $('#errorpw').show();
+                        }
+                    },
+                    'json'
+                );
+            });
         });
 
     </script>

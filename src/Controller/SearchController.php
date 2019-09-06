@@ -20,6 +20,8 @@ class SearchController extends AbstractController
 
     /**
      * @Route("/search", name="search_index")
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -41,8 +43,9 @@ class SearchController extends AbstractController
             return $entries["name"];
 
         } else {
-            return $this->render('entry/index.html.twig', [
-                'entries' => $entries
+            return $this->render('search/result.html.twig', [
+                'entries' => $entries,
+                'searchterm' => $searchterm
             ]);
         }
     }

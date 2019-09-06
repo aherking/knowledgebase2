@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+use App\Entity\Entry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Tag;
@@ -12,10 +13,18 @@ class StartController extends AbstractController
     {
         $criteria = ['main' => 1];
         $tags = $this->getDoctrine()
-            ->getRepository((Tag::class))
+            ->getRepository(Tag::class)
             ->findBy($criteria);
 
-        return $this->render('/start/index.html.twig', [ 'tags' => $tags
+        $entries = $this->getDoctrine()
+            ->getRepository(Entry::class)
+            ->findAll();
+
+        return $this->render('/start/index.html.twig', [
+            'entries' => $entries,
+            'tags' => $tags
         ]);
+
+
     }
 }
