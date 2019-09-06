@@ -17,8 +17,10 @@
                 {% endif %}
 
                 {% if status_code == 403 %}
-                    Please login to get access to this page.
-                {% endif %}
+                    Please login to get access to this page. <hr>
+            <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="btn btn-success">Login</button>
+
+            {% endif %}
 
             </p>
 

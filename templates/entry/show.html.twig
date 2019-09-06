@@ -26,7 +26,12 @@
                         <i class="fas fa-calendar-alt" title="erstellt"></i> <a title="erstellt"> {{ entry.created ? entry.created|date('Y-m-d') : '' }}</a>
                         <i class="fas fa-calendar-alt" title="bearbeitet"></i> <a title="bearbeitet"> {{ entry.changed ? entry.changed|date('Y-m-d') : '' }}</a>                {% for tag in entry.getTagId() %}
                         <a href="{{ path('tag_show', {'id': tag.id}) }}"><i class="fas fa-tags" title="Tag"></i> {{ tag.name }} </a>
-                    {% endfor %}</p>
+                    {% endfor %}
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <a href="{{ path('entry_edit', {'id': entry.id}) }}"> | Eintrag bearbeiten</a>
+                    {% endif %}
+                        </p>
+
 
                     <hr>
                     <div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">

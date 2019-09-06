@@ -3,13 +3,7 @@ declare(strict_types=1);
 
 namespace  App\Security;
 
-use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\Response;

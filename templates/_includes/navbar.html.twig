@@ -14,6 +14,12 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/entry">Einträge <span class="sr-only">(current)</span></a>
             </li>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
+            <li class="nav-item active">
+                <a class="nav-link" href="/entry/new">Neuer Eintrag <span class="sr-only">(current)</span></a>
+            </li>
+            {% endif %}
         </ul>
 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
