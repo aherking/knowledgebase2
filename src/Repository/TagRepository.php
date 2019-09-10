@@ -19,6 +19,15 @@ class TagRepository extends ServiceEntityRepository
         parent::__construct($registry, Tag::class);
     }
 
+    public function findByMain($main = 0, $limit = 3)
+    {
+        return $this->createQueryBuilder('t')
+            ->andwhere('t.main = :main')
+            ->setParameter('main', $main)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Tag[] Returns an array of Tag objects
     //  */
