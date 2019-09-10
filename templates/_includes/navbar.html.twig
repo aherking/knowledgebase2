@@ -31,6 +31,9 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="{{ path('profile_index') }}">Mein Profil</a>
                     <a class="dropdown-item" href="{{ path('entry_new') }}">Eintrag erstellen</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a class="dropdown-item" href="{{ path('dashboard_index') }}">Admin-Bereich</a>
+                    {% endif %}
                     <a class="dropdown-item" href="/logout">Logout</a>
 
                 </div>
