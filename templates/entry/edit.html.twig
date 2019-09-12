@@ -18,23 +18,26 @@
             <input type="text" class="form-control" name="entry[name]" value="{{ entry.name }}">
         </div>
         <div class="form-group shadow-textarea" aria-rowcount="10">
-            <label for="InputWorkflow">
-                Workflow
-               <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#InputWorkflow" aria-expanded="false" aria-controls="InputWorkflow"></i></small>
-             </label>
-            <br>
-            <textarea class="collapse show form-control" name="entry[workflow]" rows="5" type="html" >{{ entry.workflow }}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="InputError">Error</label>
-            <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#InputError" aria-expanded="false" aria-controls="InputError"></i></small>
-            <textarea rows="5" type="html" class="collapse show form-control" name="entry[error]">{{ entry.error }}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="InputSolution">Lösung</label>
-            <small><i class="fas fa-plus-square" title="erweitern" type="button" data-toggle="collapse" data-target="#InputSolution" aria-expanded="false" aria-controls="InputSolution"></i></small>
-            <textarea rows="5" type="html" class="collapse show form-control" name="entry[solution]">{{ entry.solution }}</textarea>
-        </div>
+            <div class="form-group shadow-textarea" aria-rowcount="10">
+                <label for="InputWorkflow">
+                    Workflow
+                </label>
+                <br>
+                <br>
+                <input id="workflow" value="{{ entry.workflow }}" type="hidden"  name="entry[workflow]">
+                <trix-editor input="workflow"></trix-editor>
+
+            </div>
+            <div class="form-group">
+                <label for="InputError">Error</label>
+                <input id="error" value="{{ entry.error }}" type="hidden"  name="entry[error]">
+                <trix-editor input="error"></trix-editor>
+            </div>
+            <div class="form-group">
+                <label for="InputSolution">Lösung</label>
+                <input id="solution" value="{{ entry.solution }}" type="hidden"  name="entry[solution]" placeholder="=DSFSD">
+                <trix-editor input="solution"></trix-editor>
+            </div>
             <div>
                 <label for="TagSelect">Main Tag</label>
                 <select class="custom-select" name="entry[tagID][]">

@@ -44,7 +44,7 @@
 
                             <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="card-body">
-                                    {{ entry.workflow }}                                </div>
+                                    {{ entry.workflow|raw }}                                </div>
                             </div>
                         </div>
                         <div class="card">
@@ -56,7 +56,7 @@
                             </div>
                             <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
                                 <div class="card-body">
-                                    {{ entry.error }}                                </div>
+                                    {{ entry.error|raw }}                                </div>
                             </div>
                         </div>
                         <div class="card">
@@ -67,7 +67,7 @@
                             </div>
                             <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
                                 <div class="card-body">
-                                    {{ entry.solution }}
+                                    {{ entry.solution|raw }}
                                 </div>
                             </div>
                         </div>
