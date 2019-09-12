@@ -42,9 +42,32 @@ class User implements UserInterface
      */
     private $entries;
 
+    /**
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     */
+
+    private $lastLogin;
+
+    /**
+     * @return mixed
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
+    }
+
+    /**
+     * @param mixed $lastLogin
+     */
+    public function setLastLogin($lastLogin): void
+    {
+        $this->lastLogin = $lastLogin;
+    }
+
     public function __construct()
     {
         $this->entries = new ArrayCollection();
+        $this->lastLogin = new DateTime();
     }
 
     public function getId(): ?int
