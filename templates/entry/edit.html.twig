@@ -14,32 +14,33 @@
                 {% endfor %}
             {% endfor %}
         <div class="form-group">
-            <label for="InputTitel">Titel</label>
+            <h3>Titel</h3>
+            <hr>
             <input type="text" class="form-control" name="entry[name]" value="{{ entry.name }}">
         </div>
         <div class="form-group shadow-textarea" aria-rowcount="10">
             <div class="form-group shadow-textarea" aria-rowcount="10">
-                <label for="InputWorkflow">
-                    Workflow
-                </label>
-                <br>
-                <br>
+            <h3>Workflow</h3>
+            <hr>
                 <input id="workflow" value="{{ entry.workflow }}" type="hidden"  name="entry[workflow]">
                 <textarea id="editor" name="entry[workflow]" value="">{{ entry.workflow }}</textarea>
 
             </div>
             <div class="form-group">
-                <label for="InputError">Error</label>
+                <h3>Fehlermeldung</h3>
+                <hr>
                 <textarea id="editor" name="entry[error]" value="">{{ entry.error }}</textarea>
 
             </div>
             <div class="form-group">
-                <label for="InputSolution">Lösung</label>
+                <h3>Lösung</h3>
+                <hr>
                 <textarea id="editor" name="entry[solution]" value="">{{ entry.solution }}</textarea>
 
             </div>
             <div>
-                <label for="TagSelect">Main Tag</label>
+                <h3>Wähle einen Haupt-Tag</h3>
+                <hr>
                 <select class="custom-select" name="entry[tagID][]">
                     {% for tag in tags %}
                         {% if tag.main %}
@@ -52,8 +53,10 @@
                     {% endfor %}
                 </select>
             </div>
+            <br /> 
             <div>
-                <label for="TagSelect">Weitere Tags</label>
+                <h3>Wähle weitere Tags</h3>
+                <hr>
                 <select class="custom-select" name="entry[tagID][]" multiple>
                     {% for tag in tags %}
                         {% if tag.main == 0 %}
