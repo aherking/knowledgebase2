@@ -7,6 +7,11 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\UserFormType;
+use Symfony\Component\HttpFoundation\Response;
+use App\Security\SecurityAuthenticator;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 /**
  * @Route("/admin/user")
@@ -26,16 +31,34 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="user_new")
+     * @Route("/add", name="user_add")
      */
-    public function new(Request $request, UserRepository $userRepository)
+    public function add (Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, SecurityAuthenticator $authenticator): Response
     {
-        $users = $userRepository->findAll();
+        $user = new User();
+        $form = $this->createForm(UserFormType::class, $user);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
 
-        return $this->render('/admin/user/new.html.twig', [
-            'users' => $users
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // do anything else you need here, like send an email
+
+            return new Response('true');
+        }
+
+        return $this->render('admin/user/new.html.twig', [
+            'registrationForm' => $form->createView(),
         ]);
     }
-
 }
