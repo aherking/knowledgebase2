@@ -1,0 +1,68 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block navigation %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Einträge</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Titel</th>
+                        <th>Angelegt am</th>
+                        <th>Zuletzt geändert</th>
+                        <th>Benutzer</th>
+                        <th>Aktionen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entry in paginator.results %}
+                    <tr>
+                        <td>{{ entry.name }}</td>
+                        <td>{{ entry.created ? entry.created|date('d.m.Y') : ''  }}</td>
+                        <td>{{ entry.changed ? entry.changed|date('d.m.Y') : ''  }}</td>
+                        <td>{{ entry.user }}</td>
+                        <td>                        <a href="{{ path('entry_edit', {'id': entry.id}) }}"> bearbeiten</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Seite {{ paginator.currentPage }} von {{ paginator.lastPage }}</div>
+    </div>
+    {% if paginator.hasToPaginate %}
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center mb-4">
+            {% if paginator.hasPreviousPage %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('admin_entry_index_paginated', {page: paginator.previousPage}) }}">&larr; Vorherige Seite</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="">&larr; Vorherige Seite</a>
+                </li>
+            {% endif %}
+
+            {% if paginator.hasNextPage %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('admin_entry_index_paginated', {page: paginator.nextPage}) }}">Nächste Seite &rarr;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="">Nächste Seite &rarr;</a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endblock %}

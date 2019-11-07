@@ -23,7 +23,7 @@ class EntryRepository extends ServiceEntityRepository
     }
 
 
-    public function findLatest(int $page = 1, Tag $tag = null): Paginator
+    public function findLatest(int $page = 1, Tag $tag = null, $pageSize = 5): Paginator
     {
         $qb = $this->createQueryBuilder('e')
             ->addSelect('u', 't')
@@ -37,7 +37,7 @@ class EntryRepository extends ServiceEntityRepository
             $qb->andWhere(':tag MEMBER OF e.tagID')
                 ->setParameter('tag', $tag);
         }
-        return (new Paginator($qb))->paginate($page);
+        return (new Paginator($qb,$pageSize))->paginate($page);
     }
 
     public function findUser(User $user, int $page = 1) : Paginator

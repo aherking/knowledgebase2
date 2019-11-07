@@ -1,0 +1,23 @@
+{% block navbar %}
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('dashboard_index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('admin_entry_index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Einträge</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('user_index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Benutzerverwaltung</span>
+        </a>
+    </li>
+{% endblock %}

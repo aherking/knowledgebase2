@@ -1,16 +1,20 @@
 <?php
 namespace App\Controller;
+use App\Repository\EntryRepository;
+use App\Repository\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Tag;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Entry;
 use App\Entity\Modus;
-
+/**
+ * @Route("/tag")
+ */
 class TagController extends AbstractController
 {
     /**
-     * @Route("/tag")
+     * @Route("/")
      */
     public function index()
     {
@@ -33,17 +37,20 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("tag/{id}", name="tag_show", methods={"GET"})
+     * @Route("/{id}", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="tag_show")
+     * @Route("/{id}/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="tag_show_paginated")
      */
-    public function show(Tag $tag)
+    public function show(Tag $tag, EntryRepository $entries, int $page)
     {
+        $latestPosts = $entries->findLatest($page, $tag);
         return $this->render('tag/show.html.twig', [
             'tag' => $tag,
+            'paginator' => $latestPosts
         ]);
     }
 
     /**
-     * @Route("tag/edit/{id}", name="tag_edit", methods={"GET"})
+     * @Route("/edit/{id}", name="tag_edit", methods={"GET"})
      */
     public function edit(Tag $tag)
     {
@@ -57,7 +64,7 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("tag/new/{id}", name="tag_new", methods={"GET"})
+     * @Route("/new/{id}", name="tag_new", methods={"GET"})
      */
     public function new()
     {

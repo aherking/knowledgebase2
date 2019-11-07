@@ -11,7 +11,8 @@
         <link rel="stylesheet" href="{{ asset('/assets/css/entries.css') }}" >
         <link rel="stylesheet" href="https://sunnyg1210.github.io/bootstrapKnowledgeBaseTheme/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
     {% endblock %}
 
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -87,6 +88,11 @@
         });
 
     </script>
+
+<script>
+    $('textarea').each(function () {
+        var editor = new Jodit(this);
+    });</script>
 {% endblock %}
 </body>
 </html>
